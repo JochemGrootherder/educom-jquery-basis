@@ -8,45 +8,68 @@
      
       <script>
         $(document).ready( function() {
-           $('#theBeatles').DataTable()
+            $("#save").click( function() {
+                
+                const data = {
+                    firstname: $("#firstname").val(),
+                    lastname: $("#lastname").val(),
+                    email: $("#email").val()
+                }
+
+                $.ajax({
+                  url: "https://api.dev-master.ninja/js/person/save",
+                  method: "POST",
+                  data: data,
+                  success: function(data) {
+                  }
+                })
+                .done(function(result) {
+                    console.log( result );
+                })
+                .fail(function(result) {
+                    console.log( result );
+                })
+                .always(function() {
+                    console.log( "complete" );
+                });
+            })
+
+          const dTable = $("#theBeatles").DataTable({
+            ajax: "https://api.dev-master.ninja/js/beatles", 
+            columns: [
+                  { data: "id"},
+                  { data: "firstname" }, 
+                  { data: "lastname"},                        
+                  { data: "dateOfBirth"},
+                  { data: "email" }
+              ] 
+            })
+
+            // Reload the table every 10 seconds
+            setInterval( function () {
+              dTable.ajax.reload()
+            }, 10000 )
+
         })
       </script>
-      
   </head>
   <body>
+    <form id="form">
+        Name: <input type="text" id="firstname"><br>
+        Lastname: <input type="text" id="lastname"><br>
+        email: <input type="text" id="email"><br>
+    </form>
+    <button id="save">Save</button>
       <table id="theBeatles"
              class="display nowrap dataTable dtr-inline collapsed">
           <thead>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Instrument</th>
+            <th>ID</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Date of Birth</th>
+            <th>Email</th>
           </thead>
           <tbody> 
-          
-          <tr>
-              <td>John Lennon</td>
-              <td>john@thebeatles.co.uk</td>
-              <td>Guitar / Vocals</td>
-          </tr>
-    
-          <tr>
-              <td>George Harrison</td>
-              <td>george@thebeatles.co.uk</td>
-              <td>Guitar / Vocals</td>
-          </tr>
-    
-          <tr>
-              <td>Paul McCartney</td>
-              <td>paul@thebeatles.co.uk</td>
-              <td>Bass / Vocals</td>
-          </tr>
-    
-          <tr>
-              <td>Ringo Starr</td>
-              <td>ringo@thebeatles.co.uk</td>
-              <td>Drums / Vocals</td>
-          </tr>
-          
           </tbody>
       </table>
   
