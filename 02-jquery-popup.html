@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>   
+    <script src="js/jquery.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <script>
+        $(document).ready( function() 
+        {
+            $("#btn").click(function() {
+                $(".window").fadeToggle(800, "linear")
+        })
+    });    
+    </script>
+  </head>
+  <body>
+    <div id="btn" class="button">Click Me!</div>
+    <div class="window">This is the window!</div>
+  </body>
+</html>
